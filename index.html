@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Academic portfolio of Selmiye Alkan Gürsel, Professor at Sabancı University, specializing in electrochemistry and nanotechnology">
+    <meta name="keywords" content="Selmiye Alkan Gürsel, Sabancı University, electrochemistry, nanotechnology, fuel cells, hydrogen production">
+    <meta name="author" content="Selmiye Alkan Gürsel">
+    <title>Selmiye Alkan Gürsel - Academic Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Libre Baskerville', serif;
+            color: #333;
+        }
+        h1, h2, h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+        }
+        p, li {
+            line-height: 1.75; /* leading-7 */
+        }
+        .section {
+            scroll-margin-top: 100px; /* Account for fixed header */
+        }
+        nav a:focus {
+            outline: 2px solid #2b6cb0;
+            outline-offset: 2px;
+        }
+        .bg-navy {
+            background-color: #001f3f; /* Navy blue */
+        }
+        .text-navy {
+            color: #001f3f;
+        }
+        .bg-gray {
+            background-color: #f3f4f6;
+        }
+        .nav-active {
+            border-bottom: 2px solid #2b6cb0;
+        }
+        #back-to-top {
+            display: none;
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background-color: #2b6cb0;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+        }
+        #citation-metrics {
+            font-style: italic;
+            color: #2b6cb0;
+        }
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 120px; /* Compact height */
+            transition: all 0.2s ease-in-out; /* Smooth transition for hover */
+        }
+        .profile-card:hover {
+            transform: scale(1.02); /* Slight zoom on hover */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        }
+        .profile-card i {
+            color: #2b6cb0;
+        }
+        .profile-card a:hover i,
+        .profile-card a:hover .id-link {
+            color: #1e40af; /* Hover effect for icons and IDs */
+        }
+        .profile-card .id-link {
+            color: #2b6cb0;
+            text-decoration: none;
+        }
+        header {
+            min-height: 80px; /* Fixed header height for predictability */
+        }
+    </style>
+</head>
+<body class="bg-gray">
+    <!-- Header -->
+    <header class="bg-white shadow fixed w-full top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex flex-col">
+                <h1 class="text-xl font-bold text-navy leading-tight" aria-label="Selmiye Alkan Gürsel, Ph.D., Academic Portfolio">Selmiye</h1>
+                <span class="text-xl font-bold text-navy leading-tight whitespace-nowrap">Alkan Gürsel, Ph.D.</span>
+            </div>
+            <nav role="navigation">
+                <ul class="flex space-x-6">
+                    <li><a href="#about" class="text-navy hover:text-blue-600 focus:text-blue-600">About</a></li>
+                    <li><a href="#research" class="text-navy hover:text-blue-600 focus:text-blue-600">Research</a></li>
+                    <li><a href="#publications" class="text-navy hover:text-blue-600 focus:text-blue-600">Publications</a></li>
+                    <li><a href="#profiles" class="text-navy hover:text-blue-600 focus:text-blue-600">Academic Profiles</a></li>
+                    <li><a href="#teaching" class="text-navy hover:text-blue-600 focus:text-blue-600">Teaching</a></li>
+                    <li><a href="#awards" class="text-navy hover:text-blue-600 focus:text-blue-600">Awards</a></li>
+                    <li><a href="#projects" class="text-navy hover:text-blue-600 focus:text-blue-600">Projects</a></li>
+                    <li><a href="#activities" class="text-navy hover:text-blue-600 focus:text-blue-600">Professional Activities</a></li>
+                    <li><a href="#contact" class="text-navy hover:text-blue-600 focus:text-blue-600">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 pt-24 pb-12" role="main">
+        <!-- About Section -->
+        <section id="about" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="about-heading">About</h2>
+            <div class="flex flex-col md:flex-row gap-8">
+                <img src="selmiye.png" alt="Portrait of Selmiye Alkan Gürsel, Professor at Sabancı University" class="w-48 h-48 rounded-full object-cover">
+                <div>
+                    <p class="text-gray-700">
+                        Selmiye Alkan Gürsel is a Professor in the Faculty of Engineering and Natural Sciences at Sabancı University, Istanbul, Türkiye, where she has been since 2008. She also serves as a Distinguished Researcher at the Sabancı University Nanotechnology Research and Application Center (SUNUM) since 2021. With over 25 years of experience, her research focuses on electrochemistry, nanotechnology, and sustainable energy solutions, including fuel cells, hydrogen production, and advanced battery systems.
+                    </p>
+                    <p class="text-gray-700 mt-4">
+                        She earned her B.Sc., M.Sc., and Ph.D. from Middle East Technical University (METU), Türkiye, and conducted postdoctoral research at the Paul Scherrer Institut in Switzerland (2003-2007) and METU (2002-2003). She has an h-index of 38 with over 4148 citations (Google Scholar). 
+                        <span id="citation-metrics" aria-label="Current citation metrics from Google Scholar">
+                            Current metrics: h-index: 38, Total citations: 4148 as of April 2025.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Section -->
+        <section id="research" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="research-heading">Research Interests</h2>
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>Polymer Electrolyte Membrane Fuel Cells</li>
+                <li>Hydrogen Production by Electrolysis</li>
+                <li>Lithium-Ion, Lithium-Air, and Lithium-Sulfur Batteries</li>
+                <li>Graphene-based Electrodes and Catalyst Supports for Energy Applications</li>
+                <li>Proton Exchange Membranes and Anion Exchange Membranes</li>
+                <li>Materials for Artificial Muscles</li>
+                <li>Electrochromic Polymers and Devices</li>
+                <li>Conducting Polymers and Enzyme Immobilization</li>
+            </ul>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="publications-heading">Publications</h2>
+            
+            <!-- Journal Articles -->
+            <h3 class="text-xl font-semibold text-navy mb-4">Journal Articles</h3>
+            <div class="mb-6">
+                <label for="filter-year" class="sr-only">Filter by Year</label>
+                <select id="filter-year" class="border border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-600">
+                    <option value="all">All Years</option>
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" role="list" aria-labelledby="publications-heading">
+                <div class="bg-white shadow rounded-lg p-6 publication-card" data-year="2025" role="listitem">
+                    <p class="text-gray-700">A. Saeidfar, A. C. Kirlioglu, S. Alkan Gürsel, S. Yesilyurt, "Role of catalyst layer composition in the degradation of low platinum-loaded proton exchange membrane fuel cell cathodes: An experimental analysis," <em>Journal of Power Sources</em> 625, 235676 (2025)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 publication-card" data-year="2024" role="listitem">
+                    <p class="text-gray-700">A. C. Kırlıoğlu, B. Ölmez, F. Rahbarshendi, M. Buldu-Akturk, A. Yürüm, S. Alkan Gürsel, B. Yarar Kaplan, "Scalable nano-sized Fe-NC catalysts for fuel cells: Evaluating the impact of iron precursors and CeO₂ addition," <em>Materials Research Bulletin</em> 179, 112952 (2024)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 publication-card" data-year="2024" role="listitem">
+                    <p class="text-gray-700">M. A. Zabara, B. Ölmez, M. Buldu‐Akturk, B. Y. Kaplan, A. C. Kırlıoğlu, S. Alkan Gürsel, M. Ozkan, C. S. Ozkan, A. Yürüm, "Photoelectrocatalytic Hydrogen Generation: Current Advances in Materials and Operando Characterization," <em>Global Challenges</em> 8 (8), 2470088 (2024)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 publication-card" data-year="2024" role="listitem">
+                    <p class="text-gray-700">İ. Bütün, S. Çelik, K. B. Dönmez, A. Yürüm, S. Alkan Gürsel, A. Koşar, "The effect of current collectors on polymer-based energy-generating units inspired by the electric organs of eels," <em>Journal of Energy Storage</em> 90, 111739 (2024)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6 publication-card" data-year="2024" role="listitem">
+                    <p class="text-gray-700">A. C. Kırlıoğlu, N. R. Mojarrad, S. Alkan Gürsel, E. Güler, B. Y. Kaplan, "New generation radiation-grafted PVDF-g-VBC based dual-fiber electrospun anion exchange membranes," <em>International Journal of Hydrogen Energy</em> 51, 1390-1401 (2024)</p>
+                </div>
+            </div>
+
+            <!-- Patents -->
+            <h3 class="text-xl font-semibold text-navy mb-4">Patents</h3>
+            <ul class="list-disc pl-5 text-gray-700 mb-8">
+                <li>S. Alkan Gürsel, L. Işıkel Şanlı, "Polymer electrolyte membrane fuel cells with improved performance," PCT Int. Appl. WO 2015022021 A1 (2015)</li>
+                <li>G. G. Scherer, L. Gubler, S. Alkan Gürsel, "A method for preparing a membrane to be assembled in a membrane electrode assembly and membrane electrode assembly," WO2006081970 (10-08-2006)</li>
+            </ul>
+
+            <!-- Book Chapters -->
+            <h3 class="text-xl font-semibold text-navy mb-4">Book Chapters</h3>
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>S. Alkan Gürsel, L. Gubler, B. Gupta, G. G. Scherer, "Radiation grafted membranes," 'Fuel Cells 1', Advances in Polymer Science, Springer, Vol. 215 (2008)</li>
+            </ul>
+        </section>
+
+        <!-- Academic Profiles Section -->
+        <section id="profiles" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="profiles-heading">Academic Profiles</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" role="list" aria-labelledby="profiles-heading">
+                <div class="bg-white shadow rounded-lg p-4 profile-card" role="listitem">
+                    <div class="flex items-center mb-2">
+                        <a href="https://orcid.org/0000-0002-7966-6352" target="_blank" rel="noopener noreferrer" class="focus:ring-2 focus:ring-blue-600" aria-label="Visit ORCID Profile">
+                            <i class="fab fa-orcid text-xl mr-1"></i>
+                        </a>
+                        <h3 class="text-lg font-semibold text-navy">ORCID</h3>
+                    </div>
+                    <a href="https://orcid.org/0000-0002-7966-6352" target="_blank" rel="noopener noreferrer" class="text-sm id-link focus:ring-2 focus:ring-blue-600" aria-label="Visit ORCID Profile">0000-0002-7966-6352</a>
+                </div>
+                <div class="bg-white shadow rounded-lg p-4 profile-card" role="listitem">
+                    <div class="flex items-center mb-2">
+                        <a href="https://scholar.google.com/citations?user=OppQTaAAAAAJ&hl" target="_blank" rel="noopener noreferrer" class="focus:ring-2 focus:ring-blue-600" aria-label="Visit Google Scholar Profile">
+                            <i class="fas fa-graduation-cap text-xl mr-1"></i>
+                        </a>
+                        <h3 class="text-lg font-semibold text-navy">Google Scholar</h3>
+                    </div>
+                    <a href="https://scholar.google.com/citations?user=OppQTaAAAAAJ&hl" target="_blank" rel="noopener noreferrer" class="text-sm id-link focus:ring-2 focus:ring-blue-600" aria-label="Visit Google Scholar Profile">Selmiye Alkan Gürsel</a>
+                </div>
+                <div class="bg-white shadow rounded-lg p-4 profile-card" role="listitem">
+                    <div class="flex items-center mb-2">
+                        <a href="https://www.scopus.com/authid/detail.uri?authorId=7006444432" target="_blank" rel="noopener noreferrer" class="focus:ring-2 focus:ring-blue-600" aria-label="Visit Scopus Profile">
+                            <i class="fas fa-book text-xl mr-1"></i>
+                        </a>
+                        <h3 class="text-lg font-semibold text-navy">Scopus</h3>
+                    </div>
+                    <a href="https://www.scopus.com/authid/detail.uri?authorId=7006444432" target="_blank" rel="noopener noreferrer" class="text-sm id-link focus:ring-2 focus:ring-blue-600" aria-label="Visit Scopus Profile">7006444432</a>
+                </div>
+                <div class="bg-white shadow rounded-lg p-4 profile-card" role="listitem">
+                    <div class="flex items-center mb-2">
+                        <a href="https://www.webofscience.com/wos/author/record/H-5133-2011" target="_blank" rel="noopener noreferrer" class="focus:ring-2 focus:ring-blue-600" aria-label="Visit Web of Science Profile">
+                            <i class="fas fa-globe text-xl mr-1"></i>
+                        </a>
+                        <h3 class="text-lg font-semibold text-navy">Web of Science</h3>
+                    </div>
+                    <a href="https://www.webofscience.com/wos/author/record/H-5133-2011" target="_blank" rel="noopener noreferrer" class="text-sm id-link focus:ring-2 focus:ring-blue-600" aria-label="Visit Web of Science Profile">H-5133-2011</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Section -->
+        <section id="teaching" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="teaching-heading">Teaching</h2>
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>Science of Nature</li>
+                <li>Organic Chemistry</li>
+                <li>Inorganic Chemistry</li>
+                <li>Electrochemistry</li>
+                <li>Analytical Chemistry</li>
+                <li>Synthesis</li>
+                <li>Applications of Nanomaterials in Energy</li>
+                <li>Hydrogen Energy System</li>
+            </ul>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="awards-heading">Awards and Honors</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Participating to Hydrogen Valley Project, the first hydrogen valley of Türkiye in South Marmara, funded by EU (Primary Investigator from Sabanci University, 2023-)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Selected to SHURA Energy Transition Center Advisory Council, 2022-</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Advisor for Sabanci Holding-Energy & Climate Group, 2022-</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Received TUBITAK Horizon 2020 Above-Threshold-Award 2020 (Multiple Projects)</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Received "Academic Prize" in the inaugural Women Energizing Türkiye Awards, Turkish Ministry of Energy and Natural Resources, 2018</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">Best Poster Award, 2nd International Symposium on Materials for Energy Storage and Conversion, 2017</p>
+                </div>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <p class="text-gray-700">The Science Academy - Young Academics Prize Scholarships (BAGEP) 2013</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="projects-heading">Selected Projects</h2>
+            <ul class="list-disc pl-5 text-gray-700">
+                <li>HORIZON EUROPE Project: Hydrogen Valley - South Marmara Hydrogen Shore (2023-)</li>
+                <li>M-ERA.NET Project: Novel Asymmetric Anion-Exchange Membranes for Fuel Cells (2020-)</li>
+                <li>TÜBİTAK 1003 Project: Development of New Generation High Capacity Cathodes based on Lithium Nickel Cobalt Aluminium Oxide (NCA) by Electrospinning (2019-2022)</li>
+                <li>TÜBİTAK 1001 Project: Development of Novel Graphene Foam Electrode Supported Nonnoble Bimetal Catalysts for Hydrogen Evolution Reaction (2018-2021)</li>
+                <li>HORIZON 2020 Project: Graphene-based Disruptive Technologies — GrapheneCore1 (2016-2018)</li>
+            </ul>
+        </section>
+
+        <!-- Professional Activities Section -->
+        <section id="activities" class="section mb-12">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="activities-heading">Professional Activities</h2>
+            <p class="text-gray-700 mb-4">
+                She serves as a reviewer for prestigious journals including Electrochimica Acta, ACS Applied Materials & Interfaces, Journal of Power Sources, and International Journal of Hydrogen Energy.
+            </p>
+            <p class="text-gray-700">
+                She is a member of Hydrogen Europe Research (HER), Batteries European Partnership Association (BEPA), Electrochemical Society (ECS), American Chemical Society (ACS), and Turkish Chemical Society.
+            </p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2 class="text-3xl font-semibold text-navy mb-6" id="contact-heading">Contact</h2>
+            <p class="text-gray-700 mb-4">
+                Email: <a href="mailto:selmiye@sabanciuniv.edu" class="text-blue-600 hover:underline" aria-label="Email Selmiye Alkan Gürsel">selmiye@sabanciuniv.edu</a>
+            </p>
+            <p class="text-gray-700 mb-4">
+                Phone: +90 216 483 95 73
+            </p>
+            <p class="text-gray-700 mb-4">
+                Office: Sabancı University, Faculty of Engineering & Natural Sciences, Nanotechnology Research and Application Center, 34956 Tuzla, Istanbul, Türkiye
+            </p>
+            <p class="text-gray-700">
+                Website: <a href="http://myweb.sabanciuniv.edu/selmiye/" class="text-blue-600 hover:underline" aria-label="Sabancı University Profile">myweb.sabanciuniv.edu/selmiye/</a> | <a href="http://www.selmiye.com" class="text-blue-600 hover:underline" aria-label="Personal Website">www.selmiye.com</a>
+            </p>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to top">Back to Top</button>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-white py-6">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p>© 2025 Selmiye Alkan Gürsel. All rights reserved.</p>
+            <p class="mt-2 text-sm">Last updated: April 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation with header offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Remove active class from all nav links
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('nav-active'));
+                // Add active class to clicked link
+                this.classList.add('nav-active');
+                // Get target element
+                const target = document.querySelector(this.getAttribute('href'));
+                // Calculate offset for fixed header
+                const header = document.querySelector('header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                // Smooth scroll to adjusted position
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Publication filter
+        document.getElementById('filter-year').addEventListener('change', function () {
+            const selectedYear = this.value;
+            document.querySelectorAll('.publication-card').forEach(card => {
+                card.style.display = selectedYear === 'all' || card.dataset.year === selectedYear ? 'block' : 'none';
+            });
+        });
+
+        // Back to top button
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Placeholder for dynamic citation metrics using a third-party API (e.g., SerpApi)
+        /*
+        async function fetchCitationMetrics() {
+            const citationMetrics = document.getElementById('citation-metrics');
+            try {
+                // Example using SerpApi (requires API key)
+                const response = await fetch('https://serpapi.com/search.json?engine=google_scholar_author&author_id=OppQTaAAAAAJ&api_key=YOUR_API_KEY');
+                const data = await response.json();
+                const hIndex = data.author.h_index || 38; // Fallback to static value
+                const citations = data.author.cited_by || 4148; // Fallback to static value
+                const currentDate = new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' });
+                citationMetrics.textContent = `Current metrics: h-index: ${hIndex}, Total citations: ${citations} as of ${currentDate}.`;
+            } catch (error) {
+                console.error('Error fetching citation metrics:', error);
+                citationMetrics.textContent = 'Current metrics: h-index: 38, Total citations: 4148 as of April 2025.';
+            }
+        }
+        // Uncomment to enable API fetching
+        // fetchCitationMetrics();
+        */
+    </script>
+</body>
+</html>
