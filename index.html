@@ -60,8 +60,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 120px; /* Compact height */
+            min-height: 120px; /* Default height */
             transition: all 0.2s ease-in-out; /* Smooth transition for hover */
+            overflow-wrap: break-word; /* Prevent text overflow */
         }
         .profile-card:hover {
             transform: scale(1.02); /* Slight zoom on hover */
@@ -78,8 +79,85 @@
             color: #2b6cb0;
             text-decoration: none;
         }
+        .profile-card a {
+            min-width: 44px; /* Touch-friendly target */
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
         header {
-            min-height: 80px; /* Fixed header height for predictability */
+            min-height: 80px; /* Fixed header height */
+        }
+        /* Mobile Navigation */
+        #mobile-menu {
+            display: none; /* Hidden by default */
+            background-color: #fff;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 20;
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+        }
+        #mobile-menu.active {
+            display: block;
+            transform: translateY(0);
+        }
+        #mobile-menu ul {
+            flex-direction: column;
+            padding: 1rem;
+        }
+        #mobile-menu li {
+            margin: 0.5rem 0;
+        }
+        #mobile-menu a {
+            font-size: 1.125rem; /* text-lg */
+            color: #001f3f;
+            display: block;
+            padding: 0.5rem;
+        }
+        /* Media Queries for Mobile */
+        @media (max-width: 767px) {
+            header {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .profile-card {
+                min-height: 100px; /* Smaller height for mobile */
+                padding: 0.75rem; /* Reduced padding */
+            }
+            .profile-card .id-link {
+                font-size: 1rem; /* text-base for readability */
+            }
+            .publication-card {
+                padding: 1rem; /* Reduced padding */
+            }
+            .award-card {
+                padding: 1rem; /* Reduced padding */
+            }
+            #about img {
+                width: 8rem; /* w-32 */
+                height: 8rem; /* h-32 */
+            }
+            h2 {
+                font-size: 1.5rem; /* text-2xl */
+            }
+            h3 {
+                font-size: 1.125rem; /* text-lg */
+            }
+            /* Disable hover effects on touch devices */
+            @media (hover: none) {
+                .profile-card:hover {
+                    transform: none;
+                    box-shadow: none;
+                }
+                .profile-card a:active i,
+                .profile-card a:active .id-link {
+                    color: #1e40af; /* Tap feedback */
+                }
+            }
         }
     </style>
 </head>
@@ -91,7 +169,8 @@
                 <h1 class="text-xl font-bold text-navy leading-tight" aria-label="Selmiye Alkan Gürsel, Ph.D., Academic Portfolio">Selmiye</h1>
                 <span class="text-xl font-bold text-navy leading-tight whitespace-nowrap">Alkan Gürsel, Ph.D.</span>
             </div>
-            <nav role="navigation">
+            <!-- Desktop Navigation -->
+            <nav role="navigation" class="max-w-md:hidden">
                 <ul class="flex space-x-6">
                     <li><a href="#about" class="text-navy hover:text-blue-600 focus:text-blue-600">About</a></li>
                     <li><a href="#research" class="text-navy hover:text-blue-600 focus:text-blue-600">Research</a></li>
@@ -104,7 +183,25 @@
                     <li><a href="#contact" class="text-navy hover:text-blue-600 focus:text-blue-600">Contact</a></li>
                 </ul>
             </nav>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-navy focus:ring-2 focus:ring-blue-600" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
+        <!-- Mobile Navigation -->
+        <nav id="mobile-menu" role="navigation">
+            <ul>
+                <li><a href="#about" class="hover:text-blue-600 focus:text-blue-600">About</a></li>
+                <li><a href="#research" class="hover:text-blue-600 focus:text-blue-600">Research</a></li>
+                <li><a href="#publications" class="hover:text-blue-600 focus:text-blue-600">Publications</a></li>
+                <li><a href="#profiles" class="hover:text-blue-600 focus:text-blue-600">Academic Profiles</a></li>
+                <li><a href="#teaching" class="hover:text-blue-600 focus:text-blue-600">Teaching</a></li>
+                <li><a href="#awards" class="hover:text-blue-600 focus:text-blue-600">Awards</a></li>
+                <li><a href="#projects" class="hover:text-blue-600 focus:text-blue-600">Projects</a></li>
+                <li><a href="#activities" class="hover:text-blue-600 focus:text-blue-600">Professional Activities</a></li>
+                <li><a href="#contact" class="hover:text-blue-600 focus:text-blue-600">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
     <!-- Main Content -->
@@ -113,7 +210,7 @@
         <section id="about" class="section mb-12">
             <h2 class="text-3xl font-semibold text-navy mb-6" id="about-heading">About</h2>
             <div class="flex flex-col md:flex-row gap-8">
-                <img src="selmiye.png" alt="Portrait of Selmiye Alkan Gürsel, Professor at Sabancı University" class="w-48 h-48 rounded-full object-cover">
+                <img src="selmiye.png" alt="Portrait of Selmiye Alkan Gürsel, Professor at Sabancı University" class="w-48 h-48 rounded-full object-cover md:w-48 md:h-48">
                 <div>
                     <p class="text-gray-700">
                         Selmiye Alkan Gürsel is a Professor in the Faculty of Engineering and Natural Sciences at Sabancı University, Istanbul, Türkiye, where she has been since 2008. She also serves as a Distinguished Researcher at the Sabancı University Nanotechnology Research and Application Center (SUNUM) since 2021. With over 25 years of experience, her research focuses on electrochemistry, nanotechnology, and sustainable energy solutions, including fuel cells, hydrogen production, and advanced battery systems.
@@ -151,7 +248,7 @@
             <h3 class="text-xl font-semibold text-navy mb-4">Journal Articles</h3>
             <div class="mb-6">
                 <label for="filter-year" class="sr-only">Filter by Year</label>
-                <select id="filter-year" class="border border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-600">
+                <select id="filter-year" class="border border-gray-300 rounded p-2 focus:ring-2 focus:ring-blue-600 w-full max-w-xs">
                     <option value="all">All Years</option>
                     <option value="2025">2025</option>
                     <option value="2024">2024</option>
@@ -251,25 +348,25 @@
         <section id="awards" class="section mb-12">
             <h2 class="text-3xl font-semibold text-navy mb-6" id="awards-heading">Awards and Honors</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Participating to Hydrogen Valley Project, the first hydrogen valley of Türkiye in South Marmara, funded by EU (Primary Investigator from Sabanci University, 2023-)</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Selected to SHURA Energy Transition Center Advisory Council, 2022-</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Advisor for Sabanci Holding-Energy & Climate Group, 2022-</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Received TUBITAK Horizon 2020 Above-Threshold-Award 2020 (Multiple Projects)</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Received "Academic Prize" in the inaugural Women Energizing Türkiye Awards, Turkish Ministry of Energy and Natural Resources, 2018</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">Best Poster Award, 2nd International Symposium on Materials for Energy Storage and Conversion, 2017</p>
                 </div>
-                <div class="bg-white shadow rounded-lg p-6">
+                <div class="bg-white shadow rounded-lg p-6 award-card">
                     <p class="text-gray-700">The Science Academy - Young Academics Prize Scholarships (BAGEP) 2013</p>
                 </div>
             </div>
@@ -328,6 +425,23 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
         // Smooth scrolling for navigation with header offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
