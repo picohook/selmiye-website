@@ -908,38 +908,46 @@
         */
 
 <script>
-    const filterSelect = document.getElementById('filter-year');
-    const cards = document.querySelectorAll('.publication-card');
+    // Tüm kodun sayfa yüklendikten sonra çalışmasını sağlar
+    document.addEventListener('DOMContentLoaded', () => {
+        const filterSelect = document.getElementById('filter-year');
+        const cards = document.querySelectorAll('.publication-card');
 
-    // Filtreleme işlemini yapan ana fonksiyon
-    const applyFilter = (year) => {
-        cards.forEach(card => {
-            const cardYear = card.getAttribute('data-year');
-            
-            if (year === 'all') {
-                card.style.display = 'block';
-            } else if (year === 'recent') {
-                card.style.display = (cardYear >= 2025) ? 'block' : 'none';
-            } else if (year === 'pre-2024') {
-                card.style.display = (cardYear < 2024) ? 'block' : 'none';
-            } else if (cardYear === year) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    };
+        // Filtreleme fonksiyonu
+        const applyFilter = (year) => {
+            cards.forEach(card => {
+                const cardYear = card.getAttribute('data-year');
+                
+                if (year === 'all') {
+                    card.style.display = 'block';
+                } else if (year === 'recent') {
+                    // Sadece 2025 ve 2026
+                    card.style.display = (cardYear === '2025' || cardYear === '2026') ? 'block' : 'none';
+                } else if (year === 'pre-2024') {
+                    // 2024'ten küçük olanlar
+                    card.style.display = (parseInt(cardYear) < 2024) ? 'block' : 'none';
+                } else if (cardYear === year) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        };
 
-    // 1. Kullanıcı menüden seçim yapınca çalışır
-    filterSelect.addEventListener('change', (e) => {
-        applyFilter(e.target.value);
+        // 1. Seçim kutusu değiştiğinde çalışır
+        if (filterSelect) {
+            filterSelect.addEventListener('change', (e) => {
+                applyFilter(e.target.value);
+            });
+
+            // 2. SAYFA İLK AÇILDIĞINDA: 
+            // Seçim kutusunu "recent" yap ve filtreyi uygula
+            filterSelect.value = 'recent';
+            applyFilter('recent');
+        } else {
+            console.error("Hata: 'filter-year' ID'li seçim kutusu bulunamadı!");
+        }
     });
-
-    // 2. Sayfa ilk açıldığında otomatik olarak "Recent" çalıştırır
-    window.onload = () => {
-        filterSelect.value = 'recent'; // Menüdeki seçimi de "Recent" olarak gösterir
-        applyFilter('recent');         // Filtreyi uygular
-    };
 </script>
 </body>
 
