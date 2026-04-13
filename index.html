@@ -1343,37 +1343,45 @@
             });
         });
 
-        // Publication Filter
-        document.addEventListener('DOMContentLoaded', () => {
-            const filterSelect = document.getElementById('filter-year');
-            const cards = document.querySelectorAll('.publication-card');
+// Publication Filter
+document.addEventListener('DOMContentLoaded', () => {
+    const filterSelect = document.getElementById('filter-year');
+    const cards = document.querySelectorAll('.publication-card');
 
-            const applyFilter = (year) => {
-                cards.forEach(card => {
-                    const cardYear = parseInt(card.getAttribute('data-year'));
-                    if (year === 'recent') {
-                        card.style.display = (cardYear === 2025 || cardYear === 2026) ? 'block' : 'none';
-                    } else if (year === 'pre-2024') {
-                        card.style.display = (cardYear < 2024) ? 'block' : 'none';
-                    } else if (year === '2026') {
-                        card.style.display = (cardYear === 2026) ? 'block' : 'none';
-                    } else if (year === '2025') {
-                        card.style.display = (cardYear === 2025) ? 'block' : 'none';
-                    } else if (year === '2024') {
-                        card.style.display = (cardYear === 2024) ? 'block' : 'none';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            };
-
-            if (filterSelect) {
-                filterSelect.value = 'recent';
-                applyFilter('recent');
-                filterSelect.addEventListener('change', (e) => applyFilter(e.target.value));
+    const applyFilter = (year) => {
+        cards.forEach(card => {
+            const cardYear = parseInt(card.getAttribute('data-year'));
+            if (year === 'all') {
+                card.style.display = 'block';
+            } else if (year === 'recent') {
+                card.style.display = (cardYear === 2025 || cardYear === 2026) ? 'block' : 'none';
+            } else if (year === 'pre-2024') {
+                card.style.display = (cardYear < 2024) ? 'block' : 'none';
+            } else if (year === '2026') {
+                card.style.display = (cardYear === 2026) ? 'block' : 'none';
+            } else if (year === '2025') {
+                card.style.display = (cardYear === 2025) ? 'block' : 'none';
+            } else if (year === '2024') {
+                card.style.display = (cardYear === 2024) ? 'block' : 'none';
+            } else {
+                card.style.display = 'block';
             }
         });
+        
+        // Sonuç sayacını da güncelle
+        const visibleCount = document.querySelectorAll('.publication-card:not([style*="display: none"])').length;
+        const visibleSpan = document.getElementById('visible-count');
+        const totalSpan = document.getElementById('total-count');
+        if (visibleSpan) visibleSpan.textContent = visibleCount;
+        if (totalSpan) totalSpan.textContent = cards.length;
+    };
 
+    if (filterSelect) {
+        filterSelect.value = 'all'; // 'recent' yerine 'all' yapıldı
+        applyFilter('all');
+        filterSelect.addEventListener('change', (e) => applyFilter(e.target.value));
+    }
+});
         // Back to top button
         const backToTop = document.getElementById('back-to-top');
         if (backToTop) {
