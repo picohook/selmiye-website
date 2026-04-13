@@ -1776,6 +1776,38 @@
         }
     }, 60 * 60 * 1000); // Her saat kontrol et
 })();
+
+        import re
+
+def add_attributes_to_publication(html_content):
+    # Her publication-card için pattern
+    pattern = r'(<div class="bg-white shadow rounded-lg p-6 publication-card" data-year="(\d+)">)\s+(<p class="text-gray-700">)(\d+)\.\s+([^,]+(?:,\s+[^,]+)*),\s*"([^"]+)".*?<em>([^<]+)</em>.*?DOI:\s*([^\s<]+)'
+    
+    def replacer(match):
+        div_start = match.group(1)
+        year = match.group(2)
+        p_start = match.group(3)
+        number = match.group(4)
+        authors = match.group(5).lower()
+        title = match.group(6).lower()
+        journal = match.group(7).lower()
+        doi = match.group(8)
+        
+        return f'''{div_start} data-title="{title}" data-authors="{authors}" data-journal="{journal}" data-doi="{doi}">
+    {p_start}{number}. {authors}, "{title}," <em>{journal}</em>... DOI: {doi}'''
+    
+    return re.sub(pattern, replacer, html_content, flags=re.DOTALL)
+
+# Kullanımı
+with open('publications.html', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+updated_content = add_attributes_to_publication(content)
+
+with open('publications_updated.html', 'w', encoding='utf-8') as f:
+    f.write(updated_content)
+
+        
     </script>
 </body>
 </html>
