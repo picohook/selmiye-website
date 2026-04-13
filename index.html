@@ -176,16 +176,46 @@
         display: none;
     }
     
-    /* Stat kartları stilleri */
-    .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        transition: transform 0.3s ease;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-5px);
-    }
-    
+/* Stat kartları stilleri - Minimal ve şık */
+.stat-card {
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+    border-color: #e5e7eb;
+}
+
+/* İkon arka planları */
+.stat-card .bg-blue-100 {
+    background-color: #eef2ff;
+}
+
+.stat-card .bg-green-100 {
+    background-color: #ecfdf5;
+}
+
+.stat-card .bg-purple-100 {
+    background-color: #f5f3ff;
+}
+
+/* İkon renkleri */
+.stat-card .text-blue-600 {
+    color: #2563eb;
+}
+
+.stat-card .text-green-600 {
+    color: #059669;
+}
+
+.stat-card .text-purple-600 {
+    color: #7c3aed;
+}    
     /* Loading spinner */
     .loader {
         border: 3px solid #f3f3f3;
@@ -1303,118 +1333,86 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', () => {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('active');
-                const icon = mobileMenuButton.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            });
+// Back to top button
+const backToTop = document.getElementById('back-to-top');
+if (backToTop) {
+    window.addEventListener('scroll', () => {
+        backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    mobileMenu.classList.remove('active');
-                    const icon = mobileMenuButton.querySelector('i');
-                    icon.classList.add('fa-bars');
-                    icon.classList.remove('fa-times');
-                });
-            });
+// Mobile Menu Toggle
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+        mobileMenu.classList.toggle('active');
+        const icon = mobileMenuButton.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.remove('active');
+            const icon = mobileMenuButton.querySelector('i');
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        });
+    });
+}
+
+// Smooth scrolling for navigation with header offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelectorAll('nav a').forEach(link => link.classList.remove('nav-active'));
+        this.classList.add('nav-active');
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const header = document.querySelector('header');
+            const headerHeight = header ? header.offsetHeight : 0;
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+            window.scrollTo({ top: targetPosition, behavior: 'smooth' });
         }
-
-        // Smooth scrolling for navigation with header offset
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelectorAll('nav a').forEach(link => link.classList.remove('nav-active'));
-                this.classList.add('nav-active');
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const header = document.querySelector('header');
-                    const headerHeight = header ? header.offsetHeight : 0;
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-                }
-            });
-        });
-
-// Publication Filter
-document.addEventListener('DOMContentLoaded', () => {
-    const filterSelect = document.getElementById('filter-year');
-    const cards = document.querySelectorAll('.publication-card');
-
-    const applyFilter = (year) => {
-        cards.forEach(card => {
-            const cardYear = parseInt(card.getAttribute('data-year'));
-            if (year === 'all') {
-                card.style.display = 'block';
-            } else if (year === 'recent') {
-                card.style.display = (cardYear === 2025 || cardYear === 2026) ? 'block' : 'none';
-            } else if (year === 'pre-2024') {
-                card.style.display = (cardYear < 2024) ? 'block' : 'none';
-            } else if (year === '2026') {
-                card.style.display = (cardYear === 2026) ? 'block' : 'none';
-            } else if (year === '2025') {
-                card.style.display = (cardYear === 2025) ? 'block' : 'none';
-            } else if (year === '2024') {
-                card.style.display = (cardYear === 2024) ? 'block' : 'none';
-            } else {
-                card.style.display = 'block';
-            }
-        });
-        
-        // Sonuç sayacını da güncelle
-        const visibleCount = document.querySelectorAll('.publication-card:not([style*="display: none"])').length;
-        const visibleSpan = document.getElementById('visible-count');
-        const totalSpan = document.getElementById('total-count');
-        if (visibleSpan) visibleSpan.textContent = visibleCount;
-        if (totalSpan) totalSpan.textContent = cards.length;
-    };
-
-    if (filterSelect) {
-        filterSelect.value = 'all'; // 'recent' yerine 'all' yapıldı
-        applyFilter('all');
-        filterSelect.addEventListener('change', (e) => applyFilter(e.target.value));
-    }
+    });
 });
-        // Back to top button
-        const backToTop = document.getElementById('back-to-top');
-        if (backToTop) {
-            window.addEventListener('scroll', () => {
-                backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
-            });
-            backToTop.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-        }
-        // Script kısmına eklenecek yeni JavaScript kodu
 
-// ========== 1. YAYIN ARAMA ÖZELLİĞİ ==========
+// ========== TEK VE ÇALIŞAN ARAMA + FİLTRE SİSTEMİ ==========
 (function() {
-    // Yayınları hazırlama
+    // Yayınları hazırlama (attribute'leri ekle)
     const preparePublications = () => {
         const publications = document.querySelectorAll('.publication-card');
         publications.forEach(pub => {
-            const text = pub.textContent || '';
-            const titleMatch = text.match(/\d+\.\s+([^,]+),/);
-            const authorsMatch = text.match(/\d+\.\s+([^,]+(?:,\s+[^,]+)*)/);
-            const journalMatch = text.match(/<em>([^<]+)<\/em>/);
-            const doiMatch = text.match(/DOI:\s*([^\s<]+)/);
+            if (pub.hasAttribute('data-title') && pub.getAttribute('data-title') !== '') return;
             
-            pub.setAttribute('data-title', titleMatch ? titleMatch[1].toLowerCase() : '');
-            pub.setAttribute('data-authors', authorsMatch ? authorsMatch[1].toLowerCase() : '');
-            pub.setAttribute('data-journal', journalMatch ? journalMatch[1].toLowerCase() : '');
-            pub.setAttribute('data-doi', doiMatch ? doiMatch[1].toLowerCase() : '');
+            const text = pub.textContent || '';
+            const titleMatch = text.match(/"([^"]+)"/);
+            const title = titleMatch ? titleMatch[1].toLowerCase() : '';
+            
+            const authorsMatch = text.match(/^\d+\.\s+([^"]+?)(?:\s*,\s*"[^"]+")?/);
+            const authors = authorsMatch ? authorsMatch[1].toLowerCase().replace(/,\s*$/, '') : '';
+            
+            const emTag = pub.querySelector('em');
+            const journal = emTag ? emTag.textContent.toLowerCase().replace(/\s+\d+.*$/, '') : '';
+            
+            const doiLink = pub.querySelector('a[href*="doi.org"]');
+            const doi = doiLink ? doiLink.getAttribute('href').replace('https://doi.org/', '').replace('http://doi.org/', '') : '';
+            
+            if (title) pub.setAttribute('data-title', title);
+            if (authors) pub.setAttribute('data-authors', authors);
+            if (journal) pub.setAttribute('data-journal', journal);
+            if (doi) pub.setAttribute('data-doi', doi);
             pub.setAttribute('data-full-text', text.toLowerCase());
         });
     };
     
-    // Arama ve filtreleme fonksiyonu
     const filterPublications = () => {
         const searchTerm = document.getElementById('search-publications')?.value.toLowerCase() || '';
         const yearFilter = document.getElementById('filter-year')?.value || 'all';
@@ -1426,7 +1424,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let yearMatch = true;
             let searchMatch = true;
             
-            // Yıl filtresi
+            // YIL FİLTRESİ
             if (yearFilter === 'recent') {
                 yearMatch = (pubYear === 2025 || pubYear === 2026);
             } else if (yearFilter === 'pre-2024') {
@@ -1435,7 +1433,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 yearMatch = (pubYear === parseInt(yearFilter));
             }
             
-            // Arama filtresi
+            // ARAMA FİLTRESİ
             if (searchTerm) {
                 const title = pub.getAttribute('data-title') || '';
                 const authors = pub.getAttribute('data-authors') || '';
@@ -1448,147 +1446,46 @@ document.addEventListener('DOMContentLoaded', () => {
                              journal.includes(searchTerm) || 
                              doi.includes(searchTerm) ||
                              fullText.includes(searchTerm);
-                
-                // Highlight matching text
-                if (searchMatch && searchTerm.length > 2) {
-                    highlightText(pub, searchTerm);
-                } else {
-                    removeHighlights(pub);
-                }
-            } else {
-                removeHighlights(pub);
             }
             
             if (yearMatch && searchMatch) {
-                pub.classList.remove('hidden');
+                pub.style.display = 'block';
                 visibleCount++;
             } else {
-                pub.classList.add('hidden');
+                pub.style.display = 'none';
             }
         });
         
-        // Sonuç sayacını güncelle
-        const totalCount = publications.length;
         const visibleSpan = document.getElementById('visible-count');
         const totalSpan = document.getElementById('total-count');
         if (visibleSpan) visibleSpan.textContent = visibleCount;
-        if (totalSpan) totalSpan.textContent = totalCount;
-        
-        // Arama sonucu mesajı
-        if (searchTerm && visibleCount === 0) {
-            showNoResultsMessage(searchTerm);
-        } else {
-            hideNoResultsMessage();
-        }
+        if (totalSpan) totalSpan.textContent = publications.length;
     };
     
-    // Metin highlight fonksiyonu
-    const highlightText = (element, searchTerm) => {
-        removeHighlights(element);
-        const walker = document.createTreeWalker(
-            element,
-            NodeFilter.SHOW_TEXT,
-            {
-                acceptNode: function(node) {
-                    if (node.parentElement?.classList?.contains('search-highlight')) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    if (node.textContent.toLowerCase().includes(searchTerm)) {
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                    return NodeFilter.FILTER_SKIP;
-                }
-            }
-        );
-        
-        const nodesToReplace = [];
-        while (walker.nextNode()) {
-            nodesToReplace.push(walker.currentNode);
-        }
-        
-        nodesToReplace.forEach(node => {
-            const span = document.createElement('span');
-            span.innerHTML = node.textContent.replace(
-                new RegExp(`(${searchTerm})`, 'gi'),
-                '<mark class="search-highlight bg-yellow-200 rounded px-0.5">$1</mark>'
-            );
-            node.parentNode.replaceChild(span, node);
-        });
-    };
-    
-    const removeHighlights = (element) => {
-        const marks = element.querySelectorAll('mark.search-highlight');
-        marks.forEach(mark => {
-            const text = document.createTextNode(mark.textContent);
-            mark.parentNode.replaceChild(text, mark);
-        });
-    };
-    
-    const showNoResultsMessage = (searchTerm) => {
-        let messageDiv = document.getElementById('no-results-message');
-        if (!messageDiv) {
-            messageDiv = document.createElement('div');
-            messageDiv.id = 'no-results-message';
-            messageDiv.className = 'text-center py-8 bg-gray-50 rounded-lg col-span-full';
-            document.querySelector('#publications-container')?.appendChild(messageDiv);
-        }
-        messageDiv.innerHTML = `
-            <i class="fas fa-search text-4xl text-gray-400 mb-3"></i>
-            <p class="text-gray-600">No publications found for "<strong>${escapeHtml(searchTerm)}</strong>"</p>
-            <p class="text-sm text-gray-500 mt-2">Try different keywords or check your spelling</p>
-        `;
-        messageDiv.classList.remove('hidden');
-    };
-    
-    const hideNoResultsMessage = () => {
-        const messageDiv = document.getElementById('no-results-message');
-        if (messageDiv) messageDiv.classList.add('hidden');
-    };
-    
-    const escapeHtml = (text) => {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    };
-    
-    // Event listeners
     document.addEventListener('DOMContentLoaded', () => {
         preparePublications();
-        filterPublications();
         
         const searchInput = document.getElementById('search-publications');
         const yearFilter = document.getElementById('filter-year');
         
-        if (searchInput) {
-            searchInput.addEventListener('input', debounce(filterPublications, 300));
-        }
         if (yearFilter) {
-            yearFilter.addEventListener('change', filterPublications);
+            yearFilter.value = 'all';
+            yearFilter.addEventListener('change', () => filterPublications());
         }
+        if (searchInput) {
+            searchInput.addEventListener('input', () => filterPublications());
+        }
+        
+        filterPublications();
     });
-    
-    const debounce = (func, wait) => {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    };
 })();
 
-// ========== 2. GOOGLE SCHOLAR İSTATİSTİKLERİ ==========
+// ========== GOOGLE SCHOLAR İSTATİSTİKLERİ ==========
 (function() {
-    // Google Scholar verilerini çekmek için CORS proxy (ücretsiz)
-    // Not: Gerçek kullanımda bir backend API'si önerilir
-    const SCHOLAR_ID = 'OppQTaAAAAAJ'; // Selmiye Alkan Gürsel'in Google Scholar ID'si
+    const SCHOLAR_ID = 'OppQTaAAAAAJ';
     const CACHE_KEY = 'scholar_stats_cache';
-    const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 saat
+    const CACHE_DURATION = 24 * 60 * 60 * 1000;
     
-    // Alternatif: Manuel veri girişi (daha güvenilir)
     const MANUAL_STATS = {
         hIndex: 40,
         citations: 4479,
@@ -1596,7 +1493,6 @@ document.addEventListener('DOMContentLoaded', () => {
         publications: 120
     };
     
-    // İstatistikleri göster
     const displayStats = (stats) => {
         const hIndexEl = document.getElementById('h-index-value');
         const citationsEl = document.getElementById('citations-value');
@@ -1615,285 +1511,46 @@ document.addEventListener('DOMContentLoaded', () => {
             avgCitationsEl.textContent = avg.toLocaleString();
         }
         if (updateDateEl) updateDateEl.textContent = stats.lastUpdated || '--';
-        
-        // Atıf büyüme oranı (varsayılan)
         if (citationGrowthEl && stats.citationGrowth) {
             citationGrowthEl.innerHTML = `<i class="fas fa-arrow-up text-green-500"></i> +${stats.citationGrowth}`;
         } else if (citationGrowthEl) {
             citationGrowthEl.innerHTML = 'Loading...';
         }
         
-        // Status iconları güncelle
         const hIndexStatus = document.getElementById('h-index-status');
         const citationsStatus = document.getElementById('citations-status');
         if (hIndexStatus) hIndexStatus.innerHTML = '<i class="fas fa-check-circle text-green-500"></i> Updated';
         if (citationsStatus) citationsStatus.innerHTML = '<i class="fas fa-check-circle text-green-500"></i> Updated';
     };
     
-    // Loading state göster
-    const showLoading = () => {
-        const hIndexEl = document.getElementById('h-index-value');
-        const citationsEl = document.getElementById('citations-value');
-        if (hIndexEl) hIndexEl.innerHTML = '<div class="loader inline-block"></div>';
-        if (citationsEl) citationsEl.innerHTML = '<div class="loader inline-block"></div>';
-    };
-    
-    // Cache'den veri çek
-    const getCachedStats = () => {
-        try {
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) {
-                const stats = JSON.parse(cached);
-                const now = new Date().getTime();
-                if (now - stats.timestamp < CACHE_DURATION) {
-                    return stats.data;
-                }
-            }
-        } catch (e) {
-            console.error('Cache read error:', e);
-        }
-        return null;
-    };
-    
-    // Cache'e kaydet
-    const setCachedStats = (data) => {
-        try {
-            const cacheData = {
-                data: data,
-                timestamp: new Date().getTime()
-            };
-            localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
-        } catch (e) {
-            console.error('Cache write error:', e);
-        }
-    };
-    
-    // Google Scholar'dan veri çek (alternatif yöntemler)
-    const fetchScholarStats = async () => {
-        // Önce cache'i kontrol et
-        const cached = getCachedStats();
-        if (cached) {
-            displayStats(cached);
-            return cached;
-        }
-        
-        showLoading();
-        
-        // Yöntem 1: SerpAPI (ücretli, ancak en güvenilir)
-        // API_KEY gerektirir - https://serpapi.com/
-        const SERPAPI_KEY = 'a79269a2e5e04a47ec0f46a7984d80209d550b6284f1f5b7b70d5838b7cf2507'; // API key'iniz varsa buraya ekleyin
-        
-        if (SERPAPI_KEY) {
-            try {
-                const response = await fetch(`https://serpapi.com/search.json?engine=google_scholar&author=${SCHOLAR_ID}&api_key=${SERPAPI_KEY}`);
-                const data = await response.json();
-                
-                if (data && data.author) {
-                    const stats = {
-                        hIndex: data.author.hindex,
-                        citations: data.author.citations,
-                        publications: data.author.publications,
-                        publications2026: calculate2026Publications(),
-                        lastUpdated: new Date().toISOString().split('T')[0],
-                        citationGrowth: Math.floor(Math.random() * 50) + 10 // Örnek büyüme
-                    };
-                    setCachedStats(stats);
-                    displayStats(stats);
-                    return stats;
-                }
-            } catch (error) {
-                console.error('SerpAPI error:', error);
-            }
-        }
-        
-        // Yöntem 2: CORS proxy ile scraping (daha az güvenilir)
-        try {
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const scholarUrl = `https://scholar.google.com/citations?user=${SCHOLAR_ID}&hl=en`;
-            const response = await fetch(proxyUrl + encodeURIComponent(scholarUrl));
-            const html = await response.text();
-            
-            // Basit regex ile veri çekme (gerçek uygulamada daha karmaşık olabilir)
-            const hMatch = html.match(/hindex=(\d+)/);
-            const cMatch = html.match(/citations=(\d+)/);
-            
-            if (hMatch && cMatch) {
-                const stats = {
-                    hIndex: parseInt(hMatch[1]),
-                    citations: parseInt(cMatch[1]),
-                    publications: document.querySelectorAll('.publication-card').length,
-                    publications2026: calculate2026Publications(),
-                    lastUpdated: new Date().toISOString().split('T')[0],
-                    citationGrowth: Math.floor(Math.random() * 50) + 10
-                };
-                setCachedStats(stats);
-                displayStats(stats);
-                return stats;
-            }
-        } catch (error) {
-            console.error('Scraping error:', error);
-        }
-        
-        // Yöntem 3: Manuel veri (en güvenilir yedek)
-        console.log('Using manual statistics data');
-        const manualStats = {
-            ...MANUAL_STATS,
-            publications: document.querySelectorAll('.publication-card').length,
-            publications2026: calculate2026Publications(),
-            citationGrowth: 127 // Örnek: son ayda 127 yeni atıf
-        };
-        setCachedStats(manualStats);
-        displayStats(manualStats);
-        return manualStats;
-    };
-    
-    // 2026 yayınlarını say
     const calculate2026Publications = () => {
         const publications = document.querySelectorAll('.publication-card[data-year="2026"]');
         return publications.length;
     };
     
-    // Sayfa yüklendiğinde ve butona tıklandığında
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchScholarStats();
-        
-        const refreshBtn = document.getElementById('refresh-stats');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', () => {
-                localStorage.removeItem(CACHE_KEY);
-                fetchScholarStats();
-                
-                // Butona geçici geri bildirim
-                const originalText = refreshBtn.innerHTML;
-                refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Updating...';
-                refreshBtn.disabled = true;
-                
-                setTimeout(() => {
-                    refreshBtn.innerHTML = originalText;
-                    refreshBtn.disabled = false;
-                }, 2000);
-            });
-        }
-    });
+    const manualStats = {
+        ...MANUAL_STATS,
+        publications: document.querySelectorAll('.publication-card').length,
+        publications2026: calculate2026Publications(),
+        citationGrowth: 127
+    };
     
-    // Her saat başı otomatik güncelleme (sadece sayfa açıkken)
-    setInterval(() => {
-        const lastUpdate = localStorage.getItem(`${CACHE_KEY}_timestamp`);
-        if (lastUpdate && (Date.now() - parseInt(lastUpdate)) > CACHE_DURATION) {
-            fetchScholarStats();
-        }
-    }, 60 * 60 * 1000); // Her saat kontrol et
+    displayStats(manualStats);
+    
+    const refreshBtn = document.getElementById('refresh-stats');
+    if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+            displayStats(manualStats);
+            const originalText = refreshBtn.innerHTML;
+            refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Updating...';
+            refreshBtn.disabled = true;
+            setTimeout(() => {
+                refreshBtn.innerHTML = originalText;
+                refreshBtn.disabled = false;
+            }, 1000);
+        });
+    }
 })();
-
-// Yayınlara otomatik attribute ekleme (Regex'siz çalışan versiyon)
-function addAttributesToPublications() {
-    const publications = document.querySelectorAll('.publication-card');
-    
-    publications.forEach((pub, index) => {
-        // Eğer attribute'ler zaten eklenmişse atla
-        if (pub.hasAttribute('data-title') && pub.getAttribute('data-title') !== '') return;
-        
-        // Yıl zaten var
-        const year = pub.getAttribute('data-year');
-        
-        // <p> etiketini bul
-        const pTag = pub.querySelector('p');
-        if (!pTag) return;
-        
-        // Metni al ve temizle
-        let text = pTag.textContent;
-        
-        // 1. Başlığı bul (tırnak içindeki metin)
-        let title = '';
-        const titleMatch = text.match(/"([^"]+)"/);
-        if (titleMatch) {
-            title = titleMatch[1].toLowerCase().trim();
-        } else {
-            // Alternatif: Virgülden sonraki ilk cümle
-            const afterFirstComma = text.split(',');
-            if (afterFirstComma.length > 1) {
-                let possibleTitle = afterFirstComma[1].trim();
-                // " ile başlıyorsa
-                if (possibleTitle.startsWith('"')) {
-                    title = possibleTitle.substring(1).split('"')[0].toLowerCase();
-                }
-            }
-        }
-        
-        // 2. Yazarları bul (ilk kısım, numaradan sonra)
-        let authors = '';
-        const authorMatch = text.match(/^\d+\.\s+([^"]+?)(?:\s*,\s*"[^"]+")?/);
-        if (authorMatch) {
-            authors = authorMatch[1].toLowerCase().trim();
-            // Fazla virgülleri temizle
-            authors = authors.replace(/,\s*$/, '');
-        } else {
-            // Alternatif: Numaradan sonra gelen ilk bölüm
-            const afterNumber = text.replace(/^\d+\.\s+/, '');
-            const firstComma = afterNumber.indexOf(',');
-            if (firstComma > 0) {
-                authors = afterNumber.substring(0, firstComma).toLowerCase().trim();
-            }
-        }
-        
-        // 3. Dergi adını bul (<em> etiketi içindeki)
-        let journal = '';
-        const emTag = pub.querySelector('em');
-        if (emTag) {
-            journal = emTag.textContent.toLowerCase().trim();
-            // Cilt/sayı bilgilerini temizle
-            journal = journal.replace(/\s+\d+.*$/, '');
-        }
-        
-        // 4. DOI'yu bul
-        let doi = '';
-        const doiLink = pub.querySelector('a[href*="doi.org"]');
-        if (doiLink) {
-            const href = doiLink.getAttribute('href');
-            doi = href.replace('https://doi.org/', '').replace('http://doi.org/', '');
-        } else {
-            // Alternatif: Metin içinde DOI ara
-            const doiMatch = text.match(/DOI:\s*([^\s]+)/i);
-            if (doiMatch) doi = doiMatch[1];
-        }
-        
-        // Attribute'leri ekle (sadece bulunanları)
-        if (title) pub.setAttribute('data-title', title);
-        if (authors) pub.setAttribute('data-authors', authors);
-        if (journal) pub.setAttribute('data-journal', journal);
-        if (doi) pub.setAttribute('data-doi', doi);
-        
-        // Tam metni de ekle (arama için)
-        pub.setAttribute('data-full-text', text.toLowerCase());
-        
-        // Debug için (isteğe bağlı, konsolda görmek isterseniz)
-        // console.log(`Publication ${index+1}:`, {title, authors, journal, doi});
-    });
-    
-    console.log(`✅ ${publications.length} publications processed successfully`);
-}
-
-// Sayfa yüklendiğinde çalıştır
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addAttributesToPublications);
-} else {
-    addAttributesToPublications();
-}
-
-// Dinamik olarak yayın eklendiğinde de çalışması için MutationObserver
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.addedNodes.length) {
-            addAttributesToPublications();
-        }
-    });
-});
-
-observer.observe(document.getElementById('publications-container') || document.body, {
-    childList: true,
-    subtree: true
-});
-        
     </script>
 </body>
 </html>
