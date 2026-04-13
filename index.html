@@ -1777,36 +1777,114 @@
     }, 60 * 60 * 1000); // Her saat kontrol et
 })();
 
-        import re
-
-def add_attributes_to_publication(html_content):
-    # Her publication-card için pattern
-    pattern = r'(<div class="bg-white shadow rounded-lg p-6 publication-card" data-year="(\d+)">)\s+(<p class="text-gray-700">)(\d+)\.\s+([^,]+(?:,\s+[^,]+)*),\s*"([^"]+)".*?<em>([^<]+)</em>.*?DOI:\s*([^\s<]+)'
+// Yayınlara otomatik attribute ekleme (Regex'siz çalışan versiyon)
+function addAttributesToPublications() {
+    const publications = document.querySelectorAll('.publication-card');
     
-    def replacer(match):
-        div_start = match.group(1)
-        year = match.group(2)
-        p_start = match.group(3)
-        number = match.group(4)
-        authors = match.group(5).lower()
-        title = match.group(6).lower()
-        journal = match.group(7).lower()
-        doi = match.group(8)
+    publications.forEach((pub, index) => {
+        // Eğer attribute'ler zaten eklenmişse atla
+        if (pub.hasAttribute('data-title') && pub.getAttribute('data-title') !== '') return;
         
-        return f'''{div_start} data-title="{title}" data-authors="{authors}" data-journal="{journal}" data-doi="{doi}">
-    {p_start}{number}. {authors}, "{title}," <em>{journal}</em>... DOI: {doi}'''
+        // Yıl zaten var
+        const year = pub.getAttribute('data-year');
+        
+        // <p> etiketini bul
+        const pTag = pub.querySelector('p');
+        if (!pTag) return;
+        
+        // Metni al ve temizle
+        let text = pTag.textContent;
+        
+        // 1. Başlığı bul (tırnak içindeki metin)
+        let title = '';
+        const titleMatch = text.match(/"([^"]+)"/);
+        if (titleMatch) {
+            title = titleMatch[1].toLowerCase().trim();
+        } else {
+            // Alternatif: Virgülden sonraki ilk cümle
+            const afterFirstComma = text.split(',');
+            if (afterFirstComma.length > 1) {
+                let possibleTitle = afterFirstComma[1].trim();
+                // " ile başlıyorsa
+                if (possibleTitle.startsWith('"')) {
+                    title = possibleTitle.substring(1).split('"')[0].toLowerCase();
+                }
+            }
+        }
+        
+        // 2. Yazarları bul (ilk kısım, numaradan sonra)
+        let authors = '';
+        const authorMatch = text.match(/^\d+\.\s+([^"]+?)(?:\s*,\s*"[^"]+")?/);
+        if (authorMatch) {
+            authors = authorMatch[1].toLowerCase().trim();
+            // Fazla virgülleri temizle
+            authors = authors.replace(/,\s*$/, '');
+        } else {
+            // Alternatif: Numaradan sonra gelen ilk bölüm
+            const afterNumber = text.replace(/^\d+\.\s+/, '');
+            const firstComma = afterNumber.indexOf(',');
+            if (firstComma > 0) {
+                authors = afterNumber.substring(0, firstComma).toLowerCase().trim();
+            }
+        }
+        
+        // 3. Dergi adını bul (<em> etiketi içindeki)
+        let journal = '';
+        const emTag = pub.querySelector('em');
+        if (emTag) {
+            journal = emTag.textContent.toLowerCase().trim();
+            // Cilt/sayı bilgilerini temizle
+            journal = journal.replace(/\s+\d+.*$/, '');
+        }
+        
+        // 4. DOI'yu bul
+        let doi = '';
+        const doiLink = pub.querySelector('a[href*="doi.org"]');
+        if (doiLink) {
+            const href = doiLink.getAttribute('href');
+            doi = href.replace('https://doi.org/', '').replace('http://doi.org/', '');
+        } else {
+            // Alternatif: Metin içinde DOI ara
+            const doiMatch = text.match(/DOI:\s*([^\s]+)/i);
+            if (doiMatch) doi = doiMatch[1];
+        }
+        
+        // Attribute'leri ekle (sadece bulunanları)
+        if (title) pub.setAttribute('data-title', title);
+        if (authors) pub.setAttribute('data-authors', authors);
+        if (journal) pub.setAttribute('data-journal', journal);
+        if (doi) pub.setAttribute('data-doi', doi);
+        
+        // Tam metni de ekle (arama için)
+        pub.setAttribute('data-full-text', text.toLowerCase());
+        
+        // Debug için (isteğe bağlı, konsolda görmek isterseniz)
+        // console.log(`Publication ${index+1}:`, {title, authors, journal, doi});
+    });
     
-    return re.sub(pattern, replacer, html_content, flags=re.DOTALL)
+    console.log(`✅ ${publications.length} publications processed successfully`);
+}
 
-# Kullanımı
-with open('publications.html', 'r', encoding='utf-8') as f:
-    content = f.read()
+// Sayfa yüklendiğinde çalıştır
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addAttributesToPublications);
+} else {
+    addAttributesToPublications();
+}
 
-updated_content = add_attributes_to_publication(content)
+// Dinamik olarak yayın eklendiğinde de çalışması için MutationObserver
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.addedNodes.length) {
+            addAttributesToPublications();
+        }
+    });
+});
 
-with open('publications_updated.html', 'w', encoding='utf-8') as f:
-    f.write(updated_content)
-
+observer.observe(document.getElementById('publications-container') || document.body, {
+    childList: true,
+    subtree: true
+});
         
     </script>
 </body>
